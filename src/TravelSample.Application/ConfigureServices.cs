@@ -11,7 +11,7 @@ public static class ConfigureServices
 {
     public static void Register(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<IFlightLogic, FlightLogic>();
-        services.AddSingleton<IHotelLogic, HotelLogic>();
+        services.AddScoped<IFlightLogic, FlightLogic>();
+        services.AddScoped<IHotelLogic, HotelLogic>();
     }
 }
