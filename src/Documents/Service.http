@@ -1,0 +1,31 @@
+﻿### Get token Sabre
+POST https://api-crt.cert.havail.sabre.com/v2/auth/token
+Authorization: BASIC {{authorization}}
+Content-Type: application/x-www-form-urlencoded
+grant_type: client_credentials
+
+### Get token Amadeus
+POST https://test.api.amadeus.com/v1/security/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id={{amadeus-api-key}}&client_secret={{amadeus-api-secret}}
+
+
+###
+@sabre-token=T1RLAQL6Iruoh5XvJHYfAGMmzmNEkDKZ3rv6YQ4Qo2cPNqWQkRBuabkNehOZsfA4tmY9facdAADgI72/SX6KXw00RF9ZdjuKXXcpg7CXZiQ4fKAxq78MU2N60TjuEA6A5Va7jbrjkjWC3uF5lg/CpqqO0e1maFgcmjfqclo/wGWFrqwGx9NKoL8D0VVUT+0g1U2wgrmKoNMvJSBaWCa+pZo5QY79SyR2XF3xxWU4sE3TYFu5MeobSlqz8osWOQ3s/84n3bmEMZpBJ2Buprlh7IopSaGQIwiWu+ElNleEnzuDCnsM2KuuvbmrYkTt4tZ7rZlTYnUiK51AoDW4iO5jpJVuvBmgsCJilRvHalp6rg7h2Hhmqo5UH/E*
+@amadeus-token=IAAmvkVrfGOs05jx7wFek38MnnqW
+
+### GET flights
+GET https://api.cert.platform.sabre.com/v1/shop/flights?origin=ATL&destination=CUN&departuredate=2024-05-29&returndate=2024-05-30
+Authorization: Bearer {{sabre-token}}
+Content-Type: application/json
+
+
+
+### GET holtels
+GET https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city?cityCode=LON
+Authorization: Bearer {{amadeus-token}}
+
+### Get hotel details
+GET https://test.api.amadeus.com/v3/shopping/hotel-offers?hotelIds=YZLONE16,YZLON383,YXLONOVS,YXLON006,YXLONATC,HSLONBCY&adults=1&checkInDate=2024-05-30&roomQuantity=1&paymentPolicy=NONE&bestRateOnly=true
+Authorization: Bearer {{amadeus-token}}

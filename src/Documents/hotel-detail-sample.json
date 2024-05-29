@@ -1,0 +1,138 @@
+﻿{
+  "data": [
+    {
+      "type": "hotel-offers",
+      "hotel": {
+        "type": "hotel",
+        "hotelId": "YZLONE16",
+        "chainCode": "YZ",
+        "dupeId": "501433155",
+        "name": "Staybridge Stes Vauxhall",
+        "cityCode": "LON",
+        "latitude": 51.48944,
+        "longitude": -0.1211
+      },
+      "available": true,
+      "offers": [
+        {
+          "id": "QEQ3B7LEF5",
+          "checkInDate": "2024-05-30",
+          "checkOutDate": "2024-05-31",
+          "rateCode": "57J",
+          "rateFamilyEstimated": {
+            "code": "BAR",
+            "type": "P"
+          },
+          "boardType": "BREAKFAST",
+          "room": {
+            "type": "*RH",
+            "typeEstimated": {
+              "category": "SUITE"
+            },
+            "description": {
+              "text": "BEST FLEXIBLE RATE\nStudio Suite When you arrive at the hotel we\nwill do our best to meet your room type",
+              "lang": "EN"
+            }
+          },
+          "guests": {
+            "adults": 1
+          },
+          "price": {
+            "currency": "GBP",
+            "base": "335.00",
+            "total": "335.00",
+            "taxes": [
+              {
+                "code": "TOTAL_TAX",
+                "pricingFrequency": "PER_NIGHT",
+                "pricingMode": "PER_PRODUCT",
+                "percentage": "20.00",
+                "included": true
+              }
+            ],
+            "variations": {
+              "average": {
+                "base": "335.00"
+              },
+              "changes": [
+                {
+                  "startDate": "2024-05-30",
+                  "endDate": "2024-05-31",
+                  "base": "335.00"
+                }
+              ]
+            }
+          },
+          "policies": {
+            "cancellations": [
+              {
+                "numberOfNights": 1,
+                "deadline": "2024-05-29T12:35:00+01:00"
+              }
+            ],
+            "guarantee": {
+              "acceptedPayments": {
+                "creditCards": [
+                  "AX",
+                  "VI",
+                  "CA",
+                  "DC",
+                  "CB",
+                  "DS",
+                  "BE"
+                ],
+                "methods": [
+                  "CREDIT_CARD"
+                ],
+                "creditCardPolicies": [
+                  {
+                    "vendorCode": "AX"
+                  },
+                  {
+                    "vendorCode": "VI"
+                  },
+                  {
+                    "vendorCode": "CA"
+                  },
+                  {
+                    "vendorCode": "DC"
+                  },
+                  {
+                    "vendorCode": "CB"
+                  },
+                  {
+                    "vendorCode": "DS"
+                  },
+                  {
+                    "vendorCode": "BE"
+                  }
+                ]
+              }
+            },
+            "paymentType": "guarantee"
+          },
+          "self": "https://test.api.amadeus.com/v3/shopping/hotel-offers/QEQ3B7LEF5"
+        }
+      ],
+      "self": "https://test.api.amadeus.com/v3/shopping/hotel-offers?hotelIds=YZLONE16&adults=1&checkInDate=2024-05-30&paymentPolicy=NONE&roomQuantity=1"
+    }
+  ],
+  "warnings": [
+    {
+      "code": 1257,
+      "title": "INVALID PROPERTY CODE",
+      "detail": "Provider Error - INVALID PROPERTY CODE",
+      "source": {
+        "parameter": "hotelIds=HSLONBCY,YXLON006,YXLONATC,YXLONOVS"
+      }
+    },
+    {
+      "code": 4070,
+      "title": "UNABLE TO PROCESS - CONTACT HELP DESK",
+      "detail": "Provider Error - UNABLE TO PROCESS - CONTACT HELP DESK",
+      "source": {
+        "parameter": "hotelIds=YZLON383"
+      }
+    }
+  ]
+}
