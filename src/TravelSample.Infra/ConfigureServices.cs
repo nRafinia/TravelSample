@@ -19,7 +19,7 @@ public static class ConfigureServices
 
     public static void Register(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<ITravelService, TravelService>();
+        services.AddScoped<ITravelService, TravelService>();
 
         AddRefitServices(services, configuration);
     }
@@ -35,14 +35,17 @@ public static class ConfigureServices
         var sabreConfiguration =
             configuration.RegisterAndGetConfiguration<SabreConfiguration>(services, SabreConfigurationName);
 
+        services.AddScoped<SabreTokenAuthenticationHandler>();
+        services.AddScoped<SabreAuthenticationHandler>();
+        
         services
             .AddRefitClient<ISabreTokenService>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri(sabreConfiguration.Domain))
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri(sabreConfiguration.AuthenticateDomain))
             .AddHttpMessageHandler<SabreTokenAuthenticationHandler>();
 
         services
             .AddRefitClient<ISabreService>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri(sabreConfiguration.Domain))
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri(sabreConfiguration.ServiceDomain))
             .AddHttpMessageHandler<SabreAuthenticationHandler>();
     }
 
@@ -51,6 +54,9 @@ public static class ConfigureServices
         var amadeusConfiguration =
             configuration.RegisterAndGetConfiguration<AmadeusConfiguration>(services, AmadeusConfigurationName);
 
+        services.AddScoped<AmadeusTokenAuthenticationHandler>();
+        services.AddScoped<AmadeusAuthenticationHandler>();
+        
         services
             .AddRefitClient<IAmadeusTokenService>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(amadeusConfiguration.Domain))
