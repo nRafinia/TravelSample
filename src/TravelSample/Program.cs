@@ -6,9 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 var serviceCollection = new ServiceCollection()
     .AddLogging();
 
+var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json", optional:true , reloadOnChange:true)
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{environmentName}.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables()
     .AddCommandLine(args)
     .Build();
@@ -21,4 +24,3 @@ var serviceProvider = serviceCollection
     .BuildServiceProvider();
 
 Console.WriteLine("Hello, World!");
-
