@@ -1,6 +1,6 @@
 ﻿### Get token Sabre
 POST https://api-crt.cert.havail.sabre.com/v2/auth/token
-Authorization: BASIC {{authorization}}
+Authorization: BASIC {{sabre-credentials}}
 Content-Type: application/x-www-form-urlencoded
 grant_type: client_credentials
 
