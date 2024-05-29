@@ -37,7 +37,8 @@ public static class ConfigureServices
 
         services
             .AddRefitClient<ISabreTokenService>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri(sabreConfiguration.Domain));
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri(sabreConfiguration.Domain))
+            .AddHttpMessageHandler<SabreTokenAuthenticationHandler>();
 
         services
             .AddRefitClient<ISabreService>()
@@ -52,7 +53,8 @@ public static class ConfigureServices
 
         services
             .AddRefitClient<IAmadeusTokenService>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri(amadeusConfiguration.Domain));
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri(amadeusConfiguration.Domain))
+            .AddHttpMessageHandler<AmadeusTokenAuthenticationHandler>();
 
         services
             .AddRefitClient<IAmadeusService>()
