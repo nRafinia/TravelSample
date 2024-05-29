@@ -1,11 +1,34 @@
-﻿namespace TravelSample.Infra.Handler;
+﻿using System.Net.Http.Headers;
+using TravelSample.Infra.Providers;
 
-public class AmadeusAuthenticationHandler:DelegatingHandler
+namespace TravelSample.Infra.Handler;
+
+public class AmadeusAuthenticationHandler(IAmadeusTokenService tokenService) : DelegatingHandler
 {
+    private static KeyValuePair<DateTime, string> _token = new(DateTime.MinValue, string.Empty);
+
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
         CancellationToken cancellationToken)
     {
-        
+        var token = await GetToken();
+
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
         return await base.SendAsync(request, cancellationToken);
+    }
+
+    private async Task<string> GetToken()
+    {
+        if (DateTime.Now < _token.Key)
+        {
+            return _token.Value;
+        }
+
+        var tokenResponse = await tokenService.GetToken();
+        _token = new KeyValuePair<DateTime, string>(
+            DateTime.Now.AddSeconds(tokenResponse.ExpiresIn),
+            tokenResponse.Token);
+
+        return _token.Value;
     }
 }
