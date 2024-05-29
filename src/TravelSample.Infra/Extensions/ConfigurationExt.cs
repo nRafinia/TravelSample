@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace TravelSample.Infra.Extensions;
 
-public static class ConfigurationExt
+internal static class ConfigurationExt
 {
     public static T RegisterAndGetConfiguration<T>(this IConfiguration configuration, IServiceCollection services,
         string sectionName)
