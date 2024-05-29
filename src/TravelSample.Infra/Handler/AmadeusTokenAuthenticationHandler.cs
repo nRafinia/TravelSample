@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Headers;
-using Microsoft.Extensions.Options;
-using TravelSample.Infra.Extensions;
+﻿using Microsoft.Extensions.Options;
 using TravelSample.Infra.Models.Configurations;
 
 namespace TravelSample.Infra.Handler;
