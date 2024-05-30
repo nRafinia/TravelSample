@@ -13,7 +13,7 @@ grant_type=client_credentials&client_id={{amadeus-api-key}}&client_secret={{amad
 
 ###
 @sabre-token=T1RLAQL6Iruoh5XvJHYfAGMmzmNEkDKZ3rv6YQ4Qo2cPNqWQkRBuabkNehOZsfA4tmY9facdAADgI72/SX6KXw00RF9ZdjuKXXcpg7CXZiQ4fKAxq78MU2N60TjuEA6A5Va7jbrjkjWC3uF5lg/CpqqO0e1maFgcmjfqclo/wGWFrqwGx9NKoL8D0VVUT+0g1U2wgrmKoNMvJSBaWCa+pZo5QY79SyR2XF3xxWU4sE3TYFu5MeobSlqz8osWOQ3s/84n3bmEMZpBJ2Buprlh7IopSaGQIwiWu+ElNleEnzuDCnsM2KuuvbmrYkTt4tZ7rZlTYnUiK51AoDW4iO5jpJVuvBmgsCJilRvHalp6rg7h2Hhmqo5UH/E*
-@amadeus-token=NKONeLzZ1pDyNSISGyyWJTC6UWJ6
+@amadeus-token=OuCbcPPYTNOEYAPCPTArfPxZfNmD
 
 ### GET flights
 GET https://api.cert.platform.sabre.com/v1/shop/flights?origin=ATL&destination=CUN&departuredate=2024-05-29&returndate=2024-05-30
