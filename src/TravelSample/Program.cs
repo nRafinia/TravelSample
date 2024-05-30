@@ -1,9 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TravelSample.Application.Flights;
-using TravelSample.Application.Models.SearchFlights;
+using TravelSample.Services;
 
 var serviceCollection = new ServiceCollection()
     .AddLogging();
@@ -31,7 +28,5 @@ TravelSample.ConfigureServices.Register(serviceCollection, configuration);
 var serviceProvider = serviceCollection
     .BuildServiceProvider();
 
-var flightService=serviceProvider.GetService<IFlightLogic>();
-var a = await flightService.Search(new SearchFlightRequest("ATL", "CUN", DateTime.Now, DateTime.Now.AddDays(1)));
-
-Console.WriteLine("Hello, World!");
+var runnerService=serviceProvider.GetService<IRunner>();
+await runnerService!.Run();
