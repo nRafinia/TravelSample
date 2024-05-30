@@ -6,8 +6,8 @@ public class SearchFlightRequestValidation : AbstractValidator<SearchFlightReque
 {
     public SearchFlightRequestValidation()
     {
-        RuleFor(f => f.Origin).NotEmpty();
-        RuleFor(f => f.Destination).NotEmpty();
+        RuleFor(f => f.Origin).NotEmpty().Length(3);
+        RuleFor(f => f.Destination).NotEmpty().Length(3);
         RuleFor(f => f.DepartureDate).GreaterThanOrEqualTo(DateTime.Now.Date);
         RuleFor(f => f.ReturnDate).GreaterThanOrEqualTo(DateTime.Now.Date);
     }
