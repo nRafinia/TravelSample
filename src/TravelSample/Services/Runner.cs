@@ -1,0 +1,62 @@
+﻿namespace TravelSample.Services;
+
+public class Runner(IFlightUi flightUi) : IRunner
+{
+    private const string SearchFlights = "Search Flights";
+    private const string SearchHotels = "Search Hotels";
+    private const string Exit = "Exit";
+
+    public async Task Run()
+    {
+//var flightService=serviceProvider.GetService<IHotelLogic>();
+//var a = await flightService.Search(new SearchhoteFlightRequest("ATL", "CUN", DateTime.Now, DateTime.Now.AddDays(1)));
+        //var hotelService=serviceProvider.GetService<IHotelLogic>();
+        //var a = await hotelService.Search(new SearchHotelRequest("PAR", DateTime.Now, 1));
+
+
+        var selectedMainMenu = string.Empty;
+        while (selectedMainMenu != Exit)
+        {
+            AnsiConsole.Clear();
+            
+            selectedMainMenu = ShowMenuForSelect();
+            switch (selectedMainMenu)
+            {
+                case SearchFlights:
+                    await flightUi.Run();
+                    break;
+                
+                case SearchHotels:
+                    break;
+                
+                case Exit:
+                    break;
+            }
+        }
+
+        Environment.Exit(0);
+
+    }
+
+    private string ShowMenuForSelect()
+    {
+        AnsiConsole.Write(
+            new FigletText("Travel sample")
+                .Centered()
+                .Color(Color.Blue));
+
+        var selectedMainMenu = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("Select an option")
+                .PageSize(10)
+                .AddChoices(
+                [
+                    SearchFlights,
+                    SearchHotels,
+                    Exit
+                ])
+        );
+
+        return selectedMainMenu;
+    }
+}
