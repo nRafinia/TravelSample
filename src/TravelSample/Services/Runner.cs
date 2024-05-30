@@ -1,6 +1,6 @@
 ﻿namespace TravelSample.Services;
 
-public class Runner(IFlightUi flightUi) : IRunner
+public class Runner(IFlightUi flightUi, IHotelUi hotelUi) : IRunner
 {
     private const string SearchFlights = "Search Flights";
     private const string SearchHotels = "Search Hotels";
@@ -8,12 +8,6 @@ public class Runner(IFlightUi flightUi) : IRunner
 
     public async Task Run()
     {
-//var flightService=serviceProvider.GetService<IHotelLogic>();
-//var a = await flightService.Search(new SearchhoteFlightRequest("ATL", "CUN", DateTime.Now, DateTime.Now.AddDays(1)));
-        //var hotelService=serviceProvider.GetService<IHotelLogic>();
-        //var a = await hotelService.Search(new SearchHotelRequest("PAR", DateTime.Now, 1));
-
-
         var selectedMainMenu = string.Empty;
         while (selectedMainMenu != Exit)
         {
@@ -27,6 +21,7 @@ public class Runner(IFlightUi flightUi) : IRunner
                     break;
                 
                 case SearchHotels:
+                    await hotelUi.Run();
                     break;
                 
                 case Exit:
