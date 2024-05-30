@@ -4,11 +4,13 @@ using TravelSample.Domain.Abstractions;
 using TravelSample.Domain.Base.Results;
 using TravelSample.Domain.Entities;
 using TravelSample.Domain.Errors;
+using TravelSample.Infra.Models.Amadeus;
 using TravelSample.Infra.Providers;
+using Hotel = TravelSample.Domain.Entities.Hotel;
 
 namespace TravelSample.Infra.Services;
 
-public class TravelService(ISabreService sabreService/*, IAmadeusService amadeusService*/) : ITravelService
+public class TravelService(ISabreService sabreService, IAmadeusService amadeusService) : ITravelService
 {
     public async Task<Result<List<Flight>?>> SearchFlightsAsync(string origin, string destination,
         DateTime departureDate, DateTime returnDate)
@@ -24,7 +26,8 @@ public class TravelService(ISabreService sabreService/*, IAmadeusService amadeus
             var response = new List<Flight>();
             foreach (var pricedItinerary in searchResponse.PricedItineraries)
             {
-                var flightSegment = pricedItinerary.AirItinerary.OriginDestinationOptions.OriginDestinationOption.First().FlightSegments;
+                var flightSegment = pricedItinerary.AirItinerary.OriginDestinationOptions.OriginDestinationOption
+                    .First().FlightSegments;
 
                 var flight = new Flight(
                     pricedItinerary.TpaExtensions.ValidatingCarrier.Code,
@@ -49,8 +52,54 @@ public class TravelService(ISabreService sabreService/*, IAmadeusService amadeus
         }
     }
 
-    public Task<Result<List<Hotel>?>> SearchHotelAsync(string city, DateTime checkIn, int rooms)
+    public async Task<Result<List<Hotel>?>> SearchHotelAsync(string city, DateTime checkIn, int rooms)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var searchResponse = await amadeusService.SearchHotelByCity(city);
+
+            var response = new List<Hotel>();
+            foreach (var hotelData in searchResponse.Data.Chunk(20))
+            {
+                Hotel hotel;
+                try
+                {
+                    var detailResponse = await amadeusService.GetHotelsData(
+                        hotelData.Select(h => h.HotelId).ToArray(),
+                        rooms,
+                        checkIn.ToString("yyyy-MM-dd"));
+
+                    foreach (var detail in detailResponse.Data)
+                    {
+                        var searchHotel = searchResponse.Data.First(x => x.HotelId == detail.Hotel.HotelId);
+
+                        hotel = new Hotel(
+                            detail.Hotel.Name,
+                            detail.Available,
+                            searchHotel.Address.CountryCode,
+                            0,
+                            detail.Offers.First().Price.Total);
+                        response.Add(hotel);
+                    }
+                }
+                catch
+                {
+                    //hotel = new Hotel(hotelData.Name, false, string.Empty, 0, 0);
+                }
+
+
+                await Task.Delay(100);
+            }
+
+            return response;
+        }
+        catch (ApiException e)
+        {
+            return Result.Failure<List<Hotel>>(SharedErrors.ProviderError(e.Content ?? string.Empty));
+        }
+        catch (Exception e)
+        {
+            return Result.Failure<List<Hotel>>(SharedErrors.UnhandledError(e.Message));
+        }
     }
 }
