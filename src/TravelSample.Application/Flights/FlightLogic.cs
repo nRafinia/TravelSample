@@ -1,6 +1,6 @@
-﻿using TravelSample.Application.Models.SearchFlights;
+﻿using TravelSample.Application.Extensions;
+using TravelSample.Application.Models.SearchFlights;
 using TravelSample.Domain.Abstractions;
-using TravelSample.Domain.Errors;
 
 namespace TravelSample.Application.Flights;
 
@@ -12,7 +12,7 @@ public class FlightLogic(ITravelService travelService) : IFlightLogic
         var validationResult = await validator.ValidateAsync(request);
         if (!validationResult.IsValid)
         {
-            return Result.Failure<List<Flight>>(SharedErrors.RequestInvalid);
+            return Result.Failure<List<Flight>>(validationResult.Errors.ToError());
         }
 
         var searchResponse= await travelService.SearchFlightsAsync(
