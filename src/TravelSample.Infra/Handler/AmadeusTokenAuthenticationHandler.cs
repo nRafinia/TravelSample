@@ -10,9 +10,11 @@ public class AmadeusTokenAuthenticationHandler(IOptions<AmadeusConfiguration> op
     {
         var formData = new List<KeyValuePair<string, string>>()
         {
-            new ("grant_type",$"client_credentials&client_id={options.Value.Key}&client_secret={options.Value.Secret}")
+            new("grant_type", "client_credentials"),
+            new("client_id", options.Value.Key),
+            new("client_secret", options.Value.Secret)
         };
-        
+
         request.Content = new FormUrlEncodedContent(formData);
 
         return await base.SendAsync(request, cancellationToken);

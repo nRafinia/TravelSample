@@ -5,6 +5,7 @@ namespace TravelSample.Infra.Providers;
 
 public interface IAmadeusTokenService
 {
-    [Get("/v1/security/oauth2/token")]
+    [Headers("Content-Type: application/x-www-form-urlencoded")]
+    [Post("/v1/security/oauth2/token")]
     Task<AccessToken> GetToken();
 }
